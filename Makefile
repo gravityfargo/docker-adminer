@@ -1,11 +1,15 @@
-IMAGE_NAME=adminerevo
-IMAGE_TAG=4.8.1
+IMAGE_NAME=gravityfargo/adminerevo
+IMAGE_TAG=$(shell git rev-parse --abbrev-ref HEAD)
 
 export DOCKER_BUILDKIT=1
 
 .PHONY: build
 build:
 	docker buildx build --tag $(IMAGE_NAME):$(IMAGE_TAG) .
+
+.PHONY: push
+push:
+	docker push $(IMAGE_NAME):$(IMAGE_TAG)
 
 .PHONY: run
 run:
